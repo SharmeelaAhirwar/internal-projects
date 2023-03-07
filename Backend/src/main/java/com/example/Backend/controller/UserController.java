@@ -31,32 +31,43 @@ public class UserController {
 	@Autowired
 	UserServices userService;
 	
-	@Autowired
-	UserRepo userRepo;
 	
 	//create-user
 	@PostMapping("/create")
-	public ResponseEntity<?>createdUser(  @RequestBody User user){
+	public ResponseEntity<ApiResponse>createdUser(  @RequestBody User user){
+		//check if username is already taken
 		
-		 if(userRepo.existsByUserName(user.getUserName())){
-	         return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
+		 if(userService.existsByUserNameUser(user.getUserName())){
+			 return  new ResponseEntity(new ApiResponse("userName is already taken !!:",false),HttpStatus.BAD_REQUEST);
 	     }
 
 	     // add check for email exists in DB
-	     if(userRepo.existsByEmail(user.getEmail())){
-	         return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
+	     if(userService.existsByUserEmailUser(user.getEmail())){
+	    	 return  new ResponseEntity(new ApiResponse("Email is already taken !!:",true),HttpStatus.BAD_REQUEST);
 	     }
 
 
 	     User userSave=this.userService.createUser(user);
 
-	     return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+	     return new ResponseEntity(new ApiResponse("User registered successfully !!",true), HttpStatus.OK);
 
 		
 
 		
 //		return new ResponseEntity<>(userSave,HttpStatus.CREATED);	
 	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<ApiResponse>LoginUsers(@RequestBody Login login){
+		if(userService.loginUser(login))
+		return  new ResponseEntity(new ApiResponse("Loggin Successfully:",true),HttpStatus.OK);
+		
+		else
+			return  new ResponseEntity(new ApiResponse("Invalid Credentials:",false),HttpStatus.BAD_REQUEST);
+			
+		
+	}
+
 	//update-user
 	@PutMapping("/update/{id}")
 	public ResponseEntity<User>updateUsers( @RequestBody User user,@PathVariable("id") Integer id){

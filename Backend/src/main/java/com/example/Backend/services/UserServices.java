@@ -13,7 +13,15 @@ public interface UserServices {
 	 
 	 //login-user
 	 
-	 User loginUser(Login loginUser);
+	 boolean loginUser(Login loginUser);
+	 
+	 //check if user is exist by username
+	 
+	 boolean existsByUserNameUser(String userName);
+	 
+ //check if user is exist by email
+	 
+	 boolean existsByUserEmailUser(String email);
 	 
         //update-user
      User updateUser(User user,int userId);

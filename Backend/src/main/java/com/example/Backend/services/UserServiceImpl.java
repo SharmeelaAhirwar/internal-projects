@@ -23,9 +23,6 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public User createUser(User user) {
 		
-		
-		
-		
 		User users=userRepo.save(user);
 			
 		
@@ -34,9 +31,15 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	@Override
-	public User loginUser(Login loginUser) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean loginUser(Login loginUser) {
+		
+		if(userRepo.existsByEmailAndPassword(loginUser.getEmail(), loginUser.getPassword()))
+			return true;
+		else
+			
+			return false;
+		
+		
 	}
 
 	@Override
@@ -69,6 +72,18 @@ public class UserServiceImpl implements UserServices {
 	public List<User> findAllUser() {
 		List<User>users=this.userRepo.findAll();
 		return users;
+	}
+
+	@Override
+	public boolean existsByUserNameUser(String userName) {
+		
+		return userRepo.existsByUserName(userName);
+	}
+
+	@Override
+	public boolean existsByUserEmailUser(String email) {
+		
+		return userRepo.existsByEmail(email);
 	}
 
 	
