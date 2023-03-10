@@ -39,11 +39,17 @@ const CustomNavbar=()=>{
         
           <Nav className="me-auto" navbar>
             
+          <NavItem>
+              <NavLink tag={ReactLink}  to="/">
+                Home
+                </NavLink>
+            </NavItem>
             <NavItem>
               <NavLink tag={ReactLink}  to="/login">
                 Login
                 </NavLink>
             </NavItem>
+           
             <NavItem>
               <NavLink tag={ReactLink}  to="/signUp">
                SignUp

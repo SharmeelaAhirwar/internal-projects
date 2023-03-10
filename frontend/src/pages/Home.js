@@ -7,7 +7,7 @@ const Home=()=>{
 
         <CustomNavbar></CustomNavbar>
        
-      
+      <h1>welcome to home page</h1>
         </>
 
 

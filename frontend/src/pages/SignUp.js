@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
 import { Card, CardBody, CardHeader, CardTitle, Container, Form, FormGroup, Label, Input, Row,Col, Button } from "reactstrap"
 import CustomNavbar from "../components/CustomNavbar"
+import  {signUp}from "../services/UserService"
+
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from 'react-toastify';
+
 
 
 const SignUp = () => {
@@ -16,6 +21,11 @@ const SignUp = () => {
         phoneNumber:''
     
     })
+
+    const [error ,setError]=useState({
+        errors: {},
+        isError: false
+    })
     useEffect(()=>{
         console.log(data);
     },[data])
@@ -24,7 +34,7 @@ const SignUp = () => {
         console.log("name chnged")
         setData({...data,[property]:event.target.value})
 
-        console.log(data)
+        // console.log(data)
 
     }
     const resetData=()=>{
@@ -40,9 +50,32 @@ const SignUp = () => {
         })
     }
 
-    const submitData=()=>{
+    const submitData=(event)=>{
+       event.preventDefault()
         console.log("submitted");
-    }
+       
+        signUp(data).then((response)=>{
+            console.log(response);
+            console.log("succes");
+            toast.success("user registered successfully!!")
+            setData({
+
+                userName:'',
+                email:'',
+                password:'',
+                firstName:'',
+                lastName:'',
+                phoneNumber:''
+    
+            })
+        
+        }).catch((error)=>{
+            console.log(error.data);
+            toast.error(error.response.data.message)
+            console.log("error");
+            
+        });
+    };
     return (
         <>
 

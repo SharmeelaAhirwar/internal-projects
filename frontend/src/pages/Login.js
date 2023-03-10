@@ -1,6 +1,9 @@
 import CustomNavbar from "../components/CustomNavbar"
 import { Card, CardBody, CardHeader, CardTitle, Container, Form, FormGroup, Label, Input, Row,Col, Button } from "reactstrap"
-import { useState } from "react"
+import { useState,useEffect } from "react"
+import{login} from "../services/UserService"
+import { toast, ToastContainer } from 'react-toastify';
+import { NavLink as ReactLink } from 'react-router-dom';
 
 
 
@@ -13,18 +16,62 @@ import { useState } from "react"
 
 const Login=()=>{
 
- const [data,setData]=useState({
-    userName:'',
-    email:'',
-    password:'',
-    firstName:'',
-    lastName:'',
-    phoneNumber:''
-
-})
+ 
 
 
 
+
+    
+    const [data,setData]=useState({
+        
+        email:'',
+        password:'',
+       
+    
+    })
+
+    const [error ,setError]=useState({
+        errors: {},
+        isError: false
+    })
+    useEffect(()=>{
+        console.log(data);
+    },[data])
+
+    const handleChange=(event,property)=>{
+        console.log("name chnged")
+        setData({...data,[property]:event.target.value})
+
+        // console.log(data)
+
+    }
+    const resetData=()=>{
+        setData({
+
+           
+            email:'',
+            password:'',
+           
+
+        })
+    }
+
+    const submitData=(event)=>{
+       event.preventDefault()
+        console.log("submitted");
+       
+        login(data).then((response)=>{
+            console.log(response);
+            console.log("succes");
+
+        }).catch((error)=>{
+            console.log(error.response.data);
+            toast.error(error.response.data.message)
+
+            console.log("error");
+            
+        });
+    };
 
     return(
         <>
@@ -41,7 +88,7 @@ const Login=()=>{
      <CardHeader>Login here !!</CardHeader>
      <CardBody>
 
-         <Form>
+         <Form onSubmit={submitData}>
 
          <FormGroup>
                  <Label for="email">
@@ -52,6 +99,8 @@ const Login=()=>{
                      name="email"
                      placeholder="abc@gmail.com"
                      type="email"
+                     onChange={(e)=>handleChange(e,'email')}
+                     value={data.email}
                  />
              </FormGroup>
 
@@ -64,6 +113,8 @@ const Login=()=>{
                      name="password"
                      placeholder="password"
                      type="password"
+                     onChange={(e)=>handleChange(e,'password')}
+                     value={data.password}
                  />
              </FormGroup>
              
