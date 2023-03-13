@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from "reactstrap";
 import CustomNavbar from "../../components/CustomNavbar";
-import { allUser } from "../../services/UserService";
+import { allUser, deleteUser } from "../../services/UserService";
+import { Link, NavLink, NavLink as ReactLink, useHref, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 
 
 
 const UserDashboard = () => {
+  const navigate = useNavigate();
+  const addUser = () => navigate('/user/add');
+  
 
 
   const [users, setUser] = useState([])
@@ -20,6 +25,20 @@ const UserDashboard = () => {
       console.log(error);
     })
   }, [])
+
+
+  const deleteUserById = (userId) => {
+    
+    deleteUser(userId).then((response) =>{
+      toast.success("user deleted successfully!!")
+      
+    console.log(response);
+
+    }).catch(error =>{
+        console.log(error);
+    })
+     
+ }
   return (
     <div>
 
@@ -34,72 +53,15 @@ const UserDashboard = () => {
 
        
 
-{/* //           // width: '18rem',
-//           marginTop: '20px',
-
-
-
-//         }}
-//       >
-//         {
-//           users &&
-//           users.map((user, index) => (
-
-
-
-
-
-//             <CardBody>
-//               <CardTitle tag="h5">
-//                 Card title
-//               </CardTitle>
-//               <CardSubtitle
-//                 className="mb-2 text-muted"
-//                 tag="h6"
-//               >
-//                 {user.userName}
-
-//               </CardSubtitle>
-
-//               <CardText>
-//                 Some quick example text to build on the card title and make up the bulk of the card‘s content.
-//               </CardText>
-//               <Button
-//                 color="primary"
-//               >
-//                 Edit
-//               </Button>
-//               {' '}
-//               <Button
-//                 color="danger"
-//               >Delete</Button>
-
-
-//               {' '}
-//             </CardBody>
-//           ))
-//         }
-//       </Card>
-
-
-//     </>
-
-
-
-
-
-
-//   );
-
-// } */}
-
-
-
+              
 <h2 className="text-center">User Details</h2>
 
 <button className="btn btn-danger" 
+onClick={addUser}
+
+
 style={{textAlign:'center'}}
-onClick={() => this.addUser()}> Add User</button>
+> Add User</button>
 
 <table className="table table-striped">
     <thead>
@@ -125,8 +87,12 @@ onClick={() => this.addUser()}> Add User</button>
                         <td>{user.email}</td>
                         <td>{user.phoneNumber}</td>
                         <td>
-                            <button className="btn btn-danger" onClick={() => this.deleteUser(user.id)}> Delete</button>
-                            <button className="btn btn-primary" onClick={() => this.editUser(user.id)}> Edit</button>
+            
+                           
+                        <Link className="btn btn-info " to={`/user/edit/${user.id}`}>update</Link>
+                        <button className = "btn btn-danger" onClick = {() => deleteUserById(user.id)}
+                                    style = {{marginLeft:"10px"}}> Delete</button>
+                        
                         </td>
                     </tr>
             )

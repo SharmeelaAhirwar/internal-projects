@@ -20,3 +20,20 @@ export const allUser=()=>{
     
     // .then((response)=>response.data)
 }
+
+export const updateUser=(user,id)=>{
+    return myAxios.put('/user/update/'+id,user)
+    
+    
+}
+export const getUserByID=(id)=>{
+    return myAxios.get('/user/getById/'+id)
+    
+    
+}
+
+export const deleteUser=(id)=>{
+    return myAxios.delete('user/delete/'+id)
+    
+    
+}

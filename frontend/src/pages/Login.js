@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader, CardTitle, Container, Form, FormGroup, Labe
 import { useState,useEffect } from "react"
 import{login} from "../services/UserService"
 import { toast, ToastContainer } from 'react-toastify';
-import { NavLink as ReactLink } from 'react-router-dom';
+import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
 
 
 
@@ -18,9 +18,10 @@ const Login=()=>{
 
  
 
+    const navigate = useNavigate();
 
 
-
+ 
     
     const [data,setData]=useState({
         
@@ -36,6 +37,7 @@ const Login=()=>{
     })
     useEffect(()=>{
         console.log(data);
+        
     },[data])
 
     const handleChange=(event,property)=>{
@@ -62,7 +64,9 @@ const Login=()=>{
        
         login(data).then((response)=>{
             console.log(response);
-            console.log("succes");
+            localStorage.setItem("loggedIn", true);
+             toast.success(response.message)
+             navigate("/user/dashboard");
 
         }).catch((error)=>{
             console.log(error.response.data);

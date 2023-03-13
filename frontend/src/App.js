@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import UserDashboard from './pages/User-operation/UserDashboard';
 import PrivateRoute from './components/PrivateRoute';
+import AddUser from './pages/User-operation/AddUser';
 
 
 
@@ -30,12 +31,16 @@ function App() {
                     <Route  path='/login' element={<Login/>} />
                    <Route  path='/signUp' element={<SignUp/>} />
 
-                   <Route  path='/user' element={<PrivateRoute/>} >
+                   {/* <Route  path='/user' element={<PrivateRoute/>} >
                    <Route  path='dashboard' element={<UserDashboard/>} />
 
-
-                   </Route>
-                 
+                   <Route  path='add' element={<AddUser/>} />
+                   </Route> */}
+                    <Route  path='/user/dashboard' element={<UserDashboard/>} />
+                    <Route  path='/user/add' element={<AddUser/>} />
+                    <Route  path='/user/edit/:id' element={<AddUser/>} />
+                  
+                    
                    
                  
         </Routes>

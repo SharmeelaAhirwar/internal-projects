@@ -58,7 +58,7 @@ const CustomNavbar=()=>{
             
             
           </Nav>
-          <NavbarText>Simple Text</NavbarText>
+          <NavbarText>project</NavbarText>
          
       </Navbar>
       
