@@ -4,6 +4,10 @@ import CustomNavbar from "../../components/CustomNavbar";
 import { allUser, deleteUser } from "../../services/UserService";
 import { Link, NavLink, NavLink as ReactLink, useHref, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import exportFromJSON from 'export-from-json'
+import { useDispatch,useSelector } from "react-redux";
+
+import { deleteUsersStart, loadUsersStart } from "../../redux/action";
 
 
 
@@ -11,38 +15,58 @@ import { toast, ToastContainer } from 'react-toastify';
 
 const UserDashboard = () => {
   const navigate = useNavigate();
-  const addUser = () => navigate('/user/add');
-  
+  const addUser = () => navigate('/users/add');
 
 
-  const [users, setUser] = useState([])
 
-  useEffect(() => {
-    allUser().then((response) => {
-      setUser(response.data)
-      console.log(response.data);
-    }).catch(error => {
-      console.log(error);
+
+  // const [users, setUser] = useState([])
+
+  // useEffect(() => {
+  //   allUser().then((response) => {
+  //     setUser(response.data)
+  //    localStorage.setItem("users",response.data)
+  //     console.log(response.data);
+  //   }).catch(error => {
+  //     console.log(error);
+  //   })
+  // }, [])
+  const dispatch=useDispatch();
+
+  const {users}=useSelector(state=>state.data)
+   useEffect(()=>{
+    dispatch(loadUsersStart());
+   },[])
+  const download=()=>{
+    allUser().then((response)=>response.data).then((res)=>{
+      const fileName = 'download'
+        const exportType =  exportFromJSON.types.csv
+        exportFromJSON({ data:res, fileName, exportType })
+      
     })
-  }, [])
+
+  }
 
 
   const deleteUserById = (userId) => {
     
-    deleteUser(userId).then((response) =>{
-      toast.success("user deleted successfully!!")
+    // deleteUser(userId).then((response) =>{
+    //   toast.success("user deleted successfully!!")
       
-    console.log(response);
+    // console.log(response);
 
-    }).catch(error =>{
-        console.log(error);
-    })
+    // }).catch(error =>{
+    //     console.log(error);
+    // })
+
+    // react-saga
+    dispatch(deleteUsersStart(userId));
      
  }
   return (
     <div>
 
-      <CustomNavbar></CustomNavbar>
+      {/* <CustomNavbar></CustomNavbar> */}
       <Card
         color="info"
         className="text-center">
@@ -89,16 +113,25 @@ style={{textAlign:'center'}}
                         <td>
             
                            
-                        <Link className="btn btn-info " to={`/user/edit/${user.id}`}>update</Link>
+                        <Link className="btn btn-info " to={`/users/edit/${user.id}`}>update</Link>
                         <button className = "btn btn-danger" onClick = {() => deleteUserById(user.id)}
                                     style = {{marginLeft:"10px"}}> Delete</button>
                         
                         </td>
                     </tr>
             )
+          
         }
+        
+       
+       
+          
     </tbody>
 </table>
+<div className="text-center">
+<h3 >download user data</h3>
+				<button  className = "btn btn-danger" onClick={download}>download</button>
+</div>
 
 </div>
 

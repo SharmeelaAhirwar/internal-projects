@@ -38,7 +38,11 @@ public class UserController {
 	public ResponseEntity<ApiResponse>createdUser(  @RequestBody User user){
 		//check if username is already taken
 		
+		
+		
+		
 		 if(userService.existsByUserNameUser(user.getUserName())){
+			
 			 return  new ResponseEntity(new ApiResponse("userName is already taken !!:",false),HttpStatus.BAD_REQUEST);
 	     }
 
@@ -81,6 +85,8 @@ public class UserController {
 	//delete-user-by-id
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<ApiResponse>deleteUsers(@PathVariable Integer id){
+		
+		
 		this.userService.deleteUser(id);
 		return  new ResponseEntity(new ApiResponse("User Deleted Successfully:",true),HttpStatus.OK);
 		

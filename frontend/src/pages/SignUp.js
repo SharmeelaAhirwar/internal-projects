@@ -79,7 +79,7 @@ const SignUp = () => {
     return (
         <>
 
-            <CustomNavbar></CustomNavbar>
+            {/* <CustomNavbar></CustomNavbar> */}
 
             <Container>
 

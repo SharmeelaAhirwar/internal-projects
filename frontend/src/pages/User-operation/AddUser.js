@@ -5,6 +5,9 @@ import { Link,useHref,useParams } from "react-router-dom"
 import { getUserByID, signUp, updateUser } from "../../services/UserService"
 import { useEffect, useState } from "react"
 import { toast, ToastContainer } from 'react-toastify';
+import { useDispatch,useSelector } from "react-redux"
+import { createUsersStart, updateUsersStart } from "../../redux/action"
+import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
 
 
 
@@ -12,7 +15,8 @@ const AddUser=()=>{
 
 
     
-    
+    const navigate = useNavigate();
+
         
 
     const [firstName, setFirstName] = useState('')
@@ -24,6 +28,8 @@ const AddUser=()=>{
     const history = useHref()
     const {id} = useParams();
 
+    const dispatch=useDispatch();
+
     const saveOrUpdateEmployee = (e) => {
         e.preventDefault();
 
@@ -32,24 +38,31 @@ const AddUser=()=>{
         if(id){
             
             
-            updateUser(user,id).then((response) => {
-                toast.success("user updated successfully!!")
-            }).catch(error => {
-                console.log(error)
-            })
+            // updateUser(user,id).then((response) => {
+            //     toast.success("user updated successfully!!")
+            // }).catch(error => {
+            //     console.log(error)
+            // })
+
+            //redux-saga
+
+            dispatch(updateUsersStart({user,id}));
 
         }else{
         
-            signUp(user).then((response) =>{
-                toast.success("user createdd successfully!!")
+            // signUp(user).then((response) =>{
+            //     toast.success("user createdd successfully!!")
 
-                console.log(response.data)
+            //     console.log(response.data)
     
-                history.push('/user/dashboard');
+            //     history.push('/user/dashboard');
+            if(userName && email && phoneNumber && password)
+                dispatch(createUsersStart(user))
+            setTimeout(()=> navigate("/users"),500)
     
-            }).catch(error => {
-                console.log(error)
-            })
+            // }).catch(error => {
+            //     console.log(error)
+            // })
         }
         
     }
@@ -89,7 +102,7 @@ const AddUser=()=>{
     
     return(
         <>
-        <CustomNavbar></CustomNavbar>
+        {/* <CustomNavbar></CustomNavbar> */}
         
 
         <Container>

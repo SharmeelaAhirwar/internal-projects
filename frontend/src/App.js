@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import UserDashboard from './pages/User-operation/UserDashboard';
 import PrivateRoute from './components/PrivateRoute';
 import AddUser from './pages/User-operation/AddUser';
+import CustomNavbar from './components/CustomNavbar';
 
 
 
@@ -23,6 +24,7 @@ function App() {
 
    
        <BrowserRouter>
+       <CustomNavbar></CustomNavbar>
        <ToastContainer position='bottom-center'/>
         <Routes>
               
@@ -36,9 +38,9 @@ function App() {
 
                    <Route  path='add' element={<AddUser/>} />
                    </Route> */}
-                    <Route  path='/user/dashboard' element={<UserDashboard/>} />
-                    <Route  path='/user/add' element={<AddUser/>} />
-                    <Route  path='/user/edit/:id' element={<AddUser/>} />
+                    <Route  path='/users' element={<UserDashboard/>} />
+                    <Route  path='/users/add' element={<AddUser/>} />
+                    <Route  path='/users/edit/:id' element={<AddUser/>} />
                   
                     
                    

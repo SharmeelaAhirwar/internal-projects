@@ -2,9 +2,18 @@ import axios from 'axios';
 import { myAxios } from './Helper';
 
  export const signUp=(user)=>{
+    
     return myAxios
     .post('/user/create',user)
     .then((response)=>response.data);
+
+};
+export const add=(user)=>{
+    console.log("user",user);
+    console.log("user",user);
+    return myAxios
+    .post('/user/create',user)
+    
 
 };
 

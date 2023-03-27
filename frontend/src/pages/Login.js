@@ -66,7 +66,7 @@ const Login=()=>{
             console.log(response);
             localStorage.setItem("loggedIn", true);
              toast.success(response.message)
-             navigate("/user/dashboard");
+             navigate("/users");
 
         }).catch((error)=>{
             console.log(error.response.data);
@@ -80,7 +80,7 @@ const Login=()=>{
     return(
         <>
 
-<CustomNavbar></CustomNavbar>
+{/* <CustomNavbar></CustomNavbar> */}
 <Container>
 
 <Row className="mt-4">
