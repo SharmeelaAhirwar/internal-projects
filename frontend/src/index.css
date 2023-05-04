@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.err{
+  text-align: center;
+  padding-top: 100px;
+
+}
+.btn{
+  color: brown;
+}
+
+
+
+

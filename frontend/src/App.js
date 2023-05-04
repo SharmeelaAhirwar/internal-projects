@@ -14,6 +14,10 @@ import PrivateRoute from './components/PrivateRoute';
 import AddUser from './pages/User-operation/AddUser';
 import CustomNavbar from './components/CustomNavbar';
 
+import EmployeeList from './EmployeeList';
+import Error from './pages/Error';
+import ErrorBoundary from './pages/ErrorBoundary';
+
 
 
 function App() {
@@ -26,10 +30,13 @@ function App() {
        <BrowserRouter>
        <CustomNavbar></CustomNavbar>
        <ToastContainer position='bottom-center'/>
+       <ErrorBoundary>
         <Routes>
               
                     
                     <Route  path='/' element={<Home/>} />
+                    <Route  path='/virtualized' element={<EmployeeList/>} />
+                    
                     <Route  path='/login' element={<Login/>} />
                    <Route  path='/signUp' element={<SignUp/>} />
 
@@ -41,11 +48,13 @@ function App() {
                     <Route  path='/users' element={<UserDashboard/>} />
                     <Route  path='/users/add' element={<AddUser/>} />
                     <Route  path='/users/edit/:id' element={<AddUser/>} />
+                    <Route path="*" element={<Error/>} />
                   
                     
                    
                  
         </Routes>
+        </ErrorBoundary>
         </BrowserRouter>
    
     
@@ -56,3 +65,5 @@ function App() {
 }
 
 export default App;
+
+

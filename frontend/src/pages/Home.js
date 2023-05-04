@@ -12,17 +12,17 @@ const Home=()=>{
   // const {users}=useSelector(state=>state.data)
   //  useEffect(()=>{
   //   dispatch(loadUsersStart());
+
   //  },[])
     return(
         <>
 
        
-       
-      <h1>welcome to home page</h1>
+     
+      <h1 style={{color:'lightseagreen',textAlign:'center',paddingTop:'50px'}}>Welcome To Home Page</h1>
+      
       
         </>
-
-
 
 
 

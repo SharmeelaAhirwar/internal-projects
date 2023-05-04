@@ -55,7 +55,11 @@ const CustomNavbar=()=>{
                SignUp
               </NavLink>
             </NavItem>
-            
+            <NavItem>
+              <NavLink tag={ReactLink}  to="/virtualized">
+               VirtualizedList
+              </NavLink>
+            </NavItem>
             
           </Nav>
           <NavbarText>project</NavbarText>

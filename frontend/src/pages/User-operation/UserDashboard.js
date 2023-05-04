@@ -8,6 +8,8 @@ import exportFromJSON from 'export-from-json'
 import { useDispatch,useSelector } from "react-redux";
 
 import { deleteUsersStart, loadUsersStart } from "../../redux/action";
+import { Column, Table } from 'react-virtualized';
+import 'react-virtualized/styles.css';
 
 
 
@@ -16,6 +18,7 @@ import { deleteUsersStart, loadUsersStart } from "../../redux/action";
 const UserDashboard = () => {
   const navigate = useNavigate();
   const addUser = () => navigate('/users/add');
+ 
 
 
 
@@ -33,6 +36,7 @@ const UserDashboard = () => {
   // }, [])
   const dispatch=useDispatch();
 
+
   const {users}=useSelector(state=>state.data)
    useEffect(()=>{
     dispatch(loadUsersStart());
@@ -46,6 +50,7 @@ const UserDashboard = () => {
     })
 
   }
+    
 
 
   const deleteUserById = (userId) => {
@@ -86,6 +91,10 @@ onClick={addUser}
 
 style={{textAlign:'center'}}
 > Add User</button>
+
+
+
+      
 
 <table className="table table-striped">
     <thead>
