@@ -17,6 +17,7 @@ import CustomNavbar from './components/CustomNavbar';
 import EmployeeList from './EmployeeList';
 import Error from './pages/Error';
 import ErrorBoundary from './pages/ErrorBoundary';
+import UploadFile from './pages/UploadFile';
 
 
 
@@ -48,6 +49,7 @@ function App() {
                     <Route  path='/users' element={<UserDashboard/>} />
                     <Route  path='/users/add' element={<AddUser/>} />
                     <Route  path='/users/edit/:id' element={<AddUser/>} />
+                    <Route path='/users/upload' element={<UploadFile/>}/>
                     <Route path="*" element={<Error/>} />
                   
                     
